@@ -1,0 +1,23 @@
+$messageColor: #ffa600;
+
+.messageBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $messageColor;
+    min-width: 200px;
+    height: 70px;
+    background-color: $messageColor;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+    &Txt {
+        font-size: 23px;
+    }
+
+    &Message {
+        font-size: 23px;
+        color: antiquewhite;
+        margin-left: 5px;
+    }
+}

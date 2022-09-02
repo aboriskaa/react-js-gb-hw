@@ -7,6 +7,7 @@ function App() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.containerApp}>Контейнер в компоненте App</div>
       <Message mess={mess} />
     </div>
   );

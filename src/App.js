@@ -1,14 +1,14 @@
+import { useState } from 'react';
 import styles from './App.module.scss';
-import Message from './components/Message/Message'
+import Chat from './components/Chat/Chat'
 
 function App() {
 
-  const mess = "Некая умная фраза..."
+  const [messageList, setMessageList] = useState([{ author: 'Bot', text: `Можем начать общаться!` }]);
 
   return (
     <div className={styles.container}>
-      <div className={styles.containerApp}>Контейнер в компоненте App</div>
-      <Message mess={mess} />
+      <Chat messageList={messageList} setMessageList={setMessageList} />
     </div>
   );
 }

@@ -25,6 +25,10 @@ const pages = [
     {
         titlePage: 'Profile',
         linkPage: '/profile'
+    },
+    {
+        titlePage: 'Counter',
+        linkPage: '/counter'
     }
 ];
 

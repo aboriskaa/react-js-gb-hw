@@ -10,22 +10,32 @@ import ChatWindow from './ChatWindow';
 
 
 export default function MainChat() {
-
-    const navigate = useNavigate();
-    let params = useParams();
-    let id = '';
+    let id = ''
 
     const [loading, setLoading] = useState(false);
     const [author, setAuthor] = useState('');
     const [text, setText] = useState('');
-    const [chatList, setChatList] = useState([{ id: uuidv4(), name: 'default' }]);
-    const [messageList, setMessageList] = useState([{ roomid: chatList[0].id, author: 'Bot', text: `Можем начать общаться!` }]);
+    const [chatList, setChatList] = useState([]);
+    const [messageList, setMessageList] = useState([]);
     const [chatName, setChatName] = useState('');
     const inputRef = useRef(null);
 
+    const navigate = useNavigate();
+    let params = useParams();
+
+
+
+    // if (chatList.length < 1) {
+    //     setChatList(() => [{ id: uuidv4(), name: 'default' }])
+    // }
+
+    // if (messageList.length <) {
+    //     setMessageList(() => [{ roomid: chatList[0].id, author: 'Bot', text: `Можем начать общаться!` }])
+    // }
 
     console.log(chatList)
-    params.roomid ? id = params.roomid : id = chatList[0].id
+
+    // params.roomid ? id = params.roomid : id = chatList[0].id
 
     console.log(id)
 
@@ -47,9 +57,7 @@ export default function MainChat() {
         let arr2 = [];
         arr2 = messageList.filter((e) => e.id !== idDel)
         setMessageList(arr2)
-        console.log(`/user/${chatList[0].id}`)
-        navigate(`/user/${chatList[0].id}`)
-
+        navigate(`/chat/${chatList[0].id}`);
     }
 
     const handlerAddChatRoom = () => {

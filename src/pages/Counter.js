@@ -3,11 +3,12 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux'
+import { counterSelector } from '../redux/reducers/counterReducer/counterSelector';
 
 export default function Counter() {
 
-    const dispatch = useDispatch();
-    const count = useSelector(state => state.counterReducer.count)
+    const dispatchCount = useDispatch();
+    const count = useSelector(counterSelector)
 
     return (
         <>
@@ -32,8 +33,8 @@ export default function Counter() {
                         alignItems: 'center',
                     }}
                 >
-                    <Button variant="contained" onClick={() => dispatch({ type: 'counter/plus' })}>+</Button>
-                    <Button variant="contained" sx={{ ml: 8 }} onClick={() => dispatch({ type: 'counter/minus' })}>-</Button>
+                    <Button variant="contained" onClick={() => dispatchCount({ type: 'counter/plus' })}>+</Button>
+                    <Button variant="contained" sx={{ ml: 8 }} onClick={() => dispatchCount({ type: 'counter/minus' })}>-</Button>
                 </Box>
             </Container>
             <Box

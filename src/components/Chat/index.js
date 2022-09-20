@@ -7,76 +7,75 @@ import { useNavigate, useParams } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import ChatsList from './ChatsList';
 import ChatWindow from './ChatWindow';
-
+import { useDispatch, useSelector } from 'react-redux'
+import { chatSelector } from '../../redux/reducers/chatReducer/chatSelector';
+import { messageSelector } from '../../redux/reducers/messageReducer/messageSelector'
 
 export default function MainChat() {
-    let id = ''
 
-    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+
+    const chats = useSelector(chatSelector);
+    const messages = useSelector(messageSelector);
+
+    let { roomid } = useParams();
+    let disButt = false;
+    if (!roomid) roomid = chats[0].id
+
+    const messagesNew = messages.filter((i) => i.roomid === roomid);
+
+    if (chats.length < 2) disButt = true
+
     const [author, setAuthor] = useState('');
     const [text, setText] = useState('');
-    const [chatList, setChatList] = useState([]);
-    const [messageList, setMessageList] = useState([]);
+
     const [chatName, setChatName] = useState('');
     const inputRef = useRef(null);
 
     const navigate = useNavigate();
-    let params = useParams();
 
-
-
-    // if (chatList.length < 1) {
-    //     setChatList(() => [{ id: uuidv4(), name: 'default' }])
-    // }
-
-    // if (messageList.length <) {
-    //     setMessageList(() => [{ roomid: chatList[0].id, author: 'Bot', text: `Можем начать общаться!` }])
-    // }
-
-    console.log(chatList)
-
-    // params.roomid ? id = params.roomid : id = chatList[0].id
-
-    console.log(id)
 
     const handlerAddMessage = () => {
-        setLoading(true);
-        setMessageList(() => [...messageList, { roomid: id, author, text }]);
+        const mess = {
+            roomid,
+            author,
+            text
+        }
+        dispatch({ type: 'message/add', payload: mess })
         setAuthor(() => '');
         setText(() => '');
     }
 
-    // ? `${params.roomid}` : `${chatList[0].id
-
-
-    const handlerDelChatRoom = (idDel) => {
-
-        let arr = [];
-        arr = chatList.filter((e) => e.id !== idDel)
-        setChatList(arr)
-        let arr2 = [];
-        arr2 = messageList.filter((e) => e.id !== idDel)
-        setMessageList(arr2)
-        navigate(`/chat/${chatList[0].id}`);
+    const handlerDelChatRoom = (event, idDel) => {
+        event.preventDefault();
+        const firstId = chats[0].id;
+        dispatch({ type: 'message/delete/all', payload: idDel })
+        dispatch({ type: 'chat/delete', payload: idDel })
+        navigate(`/chat/${firstId}`);
     }
 
-    const handlerAddChatRoom = () => {
-        setChatList([...chatList, { id: uuidv4(), name: chatName }])
+    const handlerAddChatRoom = (e) => {
+        e.preventDefault();
+        const add = {
+            id: uuidv4(),
+            name: chatName
+        }
+        dispatch({ type: 'chat/add', payload: add })
         setChatName(() => '');
+        navigate(`/chat/${add.id}`);
     }
 
     const botData = useCallback(() => {
         setTimeout(() => {
-            if (messageList.length > 0 && messageList[messageList.length - 1].author !== "Bot") {
-                let lastAuthor = messageList[messageList.length - 1].author;
-                setMessageList([...messageList, { roomid: id, author: 'Bot', text: `Привет, ${lastAuthor}!!!` }]);
+            if (messages.length > 0 && messages[messages.length - 1].author !== "Bot") {
+                let lastAuthor = messages[messages.length - 1].author;
+                dispatch({ type: 'message/add', payload: { roomid, author: 'Bot', text: `Привет, ${lastAuthor}!!!` } })
             }
         }, 1500);
-    }, [messageList, setMessageList, id]);
+    }, [roomid, dispatch, messages]);
 
     useEffect(() => {
         botData();
-        setLoading(false);
         focusTExtField(inputRef.current)
     }, [botData]);
 
@@ -105,16 +104,16 @@ export default function MainChat() {
                     />
                 </Box>
                 <List component="nav" sx={{ position: 'relative', overflow: 'auto', maxHeight: 220 }}>
-                    {chatList.map((e) => <ChatsList key={uuidv4()} e={e} handlerDelChatRoom={handlerDelChatRoom} />)}
+                    {chats.map((e) => <ChatsList key={uuidv4()} e={e} handlerDelChatRoom={handlerDelChatRoom} disButt={disButt} />)}
                 </List>
             </Box>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '250px' }}>
                 <Box>
-                    {id}
+                    {roomid}
                 </Box>
                 <List sx={{ width: '100%', bgcolor: 'background.paper', position: 'relative', overflow: 'auto', maxHeight: 220 }}>
-                    {[...messageList].filter((i) => i.roomid === id).map((e) => {
+                    {messagesNew.map((e) => {
                         return <ChatWindow key={uuidv4()} author={e.author} text={e.text} />
                     })}
                 </List>
@@ -141,7 +140,7 @@ export default function MainChat() {
                     />
                 </Box>
                 <Box sx={{ marginTop: 1 }}>
-                    <Button disabled={(text && author) ? false : true} variant="outlined" onClick={handlerAddMessage}>Primary</Button>
+                    <Button variant="outlined" disabled={(text && author) ? false : true} onClick={handlerAddMessage}>Primary</Button>
                 </Box>
             </Box>
         </Box>

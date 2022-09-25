@@ -1,1 +1,1 @@
-export const counterSelector = (state) => state.counterReducer.count 
+export const counterSelector = (state) => state.counterReducer.count;

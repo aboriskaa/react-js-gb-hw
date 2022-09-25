@@ -19,6 +19,8 @@
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
+    "redux-persist": "^6.0.0",
+    "reduxjs-toolkit-persist": "^7.2.1",
     "remove": "^0.1.5",
     "sass": "^1.54.8",
     "styled-components": "^5.3.5",

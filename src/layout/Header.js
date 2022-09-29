@@ -30,6 +30,10 @@ const pages = [
 		titlePage: 'Counter',
 		linkPage: '/counter',
 	},
+	{
+		titlePage: 'News',
+		linkPage: '/news',
+	},
 ];
 
 export default function Header() {

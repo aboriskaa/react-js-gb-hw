@@ -15,7 +15,7 @@ export const counterReducer = (state = { count: 0 }, action) => {
 	}
 };
 
-export const middleware = (store) => (next) => (action) => {
+export const middleware = () => (next) => (action) => {
 	console.log('We can do side effects here!');
 	setTimeout(() => {
 		console.log('timeouts, api calls etc');

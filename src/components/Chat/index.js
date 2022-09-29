@@ -64,18 +64,22 @@ export default function MainChat() {
 	};
 
 	const botData = useCallback(() => {
-		setTimeout(() => {
-			if (
-				messages.length > 0 &&
-				messages[messages.length - 1].author !== 'Bot'
-			) {
-				let lastAuthor = messages[messages.length - 1].author;
-				dispatch({
-					type: 'message/add',
-					payload: { roomid, author: 'Bot', text: `Привет, ${lastAuthor}!!!` },
-				});
-			}
-		}, 1500);
+		if (
+			messages !== undefined &&
+			messages.length > 0 &&
+			messages[messages.length - 1].author !== 'Bot'
+		) {
+			let lastAuthor = messages[messages.length - 1].author;
+			console.log(lastAuthor);
+			dispatch({
+				type: 'message/add',
+				payload: {
+					roomid,
+					author: 'Bot',
+					text: `Привет, ${lastAuthor}!!!`,
+				},
+			});
+		}
 	}, [roomid, dispatch, messages]);
 
 	useEffect(() => {
@@ -90,7 +94,15 @@ export default function MainChat() {
 	}
 
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+		<Box
+			sx={{
+				display: 'flex',
+				flexDirection: 'row',
+				gap: '1rem',
+				flexWrap: 'wrap',
+				justifyContent: 'center',
+			}}
+		>
 			<Box width={'230px'}>
 				<Box>
 					<Button

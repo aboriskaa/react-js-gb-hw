@@ -10,10 +10,10 @@ export default function Search() {
 	const dispatch = useDispatch();
 	const loading = useSelector(newsLoading);
 
-	const [search, setSearch] = useState('');
+	const [search3, setSearch3] = useState('');
 
 	const handlerRunSearch = () => {
-		dispatch(getNews(search));
+		dispatch(getNews(search3));
 	};
 
 	return (
@@ -23,15 +23,15 @@ export default function Search() {
 					required
 					id='outlined-required'
 					label='What news do you want?'
-					value={search}
+					value={search3}
 					onChange={(e) => {
-						setSearch(e.target.value);
+						setSearch3(e.target.value);
 					}}
 				/>
 			</Box>
 			<Box sx={{ marginTop: 1 }}>
 				<Button
-					disabled={loading || search === '' ? true : false}
+					disabled={loading || search3 === '' ? true : false}
 					variant='outlined'
 					href='#outlined-buttons'
 					onClick={handlerRunSearch}

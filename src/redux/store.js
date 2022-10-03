@@ -17,6 +17,7 @@ import { chatReducer } from './reducers/chatReducer/chatReducer';
 // import storage from 'reduxjs-toolkit-persist/lib/storage'; // defaults to localStorage for web
 import { messageReducer } from './reducers/messageReducer/messageReducer';
 import { newsReducer } from './reducers/newsReducer/newsReducer';
+import { authenticationReducer } from './reducers/authenticationReducer/authenticationReducer';
 // import { log } from './middleware/log';
 import thunk from 'redux-thunk';
 
@@ -25,6 +26,7 @@ const reducers = combineReducers({
 	chatReducer,
 	messageReducer,
 	newsReducer,
+	authenticationReducer,
 });
 
 // const persistConfig = {

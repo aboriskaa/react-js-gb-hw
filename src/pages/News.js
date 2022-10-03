@@ -13,18 +13,18 @@ import Preloader from '../components/Preloader';
 import { v4 as uuidv4 } from 'uuid';
 import Search from '../components/Gnews/Search';
 import ErrorAlert from '../components/ErrorAlert';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 
 export default function News() {
 	const dispatch = useDispatch();
 	const news = useSelector(newsGetSelector);
-	const search = useSelector(newsSearchSelector);
+	const search1 = useSelector(newsSearchSelector);
 	const loading = useSelector(newsLoading);
 	const error = useSelector(newsErrorSelector);
 
 	const searchCallback = useCallback(() => {
-		dispatch(getNews(search));
-	}, [dispatch, search]);
+		dispatch(getNews(search1));
+	}, [dispatch, search1]);
 
 	useEffect(() => {
 		searchCallback();
@@ -35,14 +35,14 @@ export default function News() {
 			{loading ? (
 				<>
 					<Preloader />
-					<Button
+					{/* <Button
 						variant='outlined'
 						size='medium'
 						sx={{ mt: 2 }}
-						onClick={dispatch(getNews(search))}
+						onClick={dispatch(getNews(search1))}
 					>
 						Try yet
-					</Button>
+					</Button> */}
 					<ErrorAlert error={error} />
 				</>
 			) : (

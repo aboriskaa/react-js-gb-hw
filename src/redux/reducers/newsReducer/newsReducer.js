@@ -41,7 +41,7 @@ export const getNews = (search) => {
 		try {
 			dispatch({ type: NEWS_LOAD });
 			const response = await fetch(URI + options + search + API_TOKEN);
-			const data = response.json();
+			const data = await response.json();
 			dispatch({
 				type: NEWS_GET,
 				payload: [...data?.articles],

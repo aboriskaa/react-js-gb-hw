@@ -1,6 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from '../layout/Layout';
 import Counter from '../pages/Counter';
+import Landing from '../pages/Landing';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
 import MainPage from '../pages/MainPage';
 import News from '../pages/News';
 import Profile from '../pages/Profile';
@@ -10,6 +13,18 @@ export default function Router() {
 	return (
 		<Routes>
 			<Route
+				path='landing'
+				element={<Landing />}
+			/>
+			<Route
+				path='login'
+				element={<Login />}
+			/>
+			<Route
+				path='register'
+				element={<Register />}
+			/>
+			<Route
 				path='/'
 				element={<Layout />}
 			>
@@ -17,14 +32,17 @@ export default function Router() {
 					index
 					element={<MainPage />}
 				/>
+
 				<Route
 					path='profile'
 					element={<Profile />}
 				/>
+
 				<Route
 					path='news'
 					element={<News />}
 				/>
+
 				<Route
 					path='counter'
 					element={<Counter />}

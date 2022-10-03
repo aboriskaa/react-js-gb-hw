@@ -1,4 +1,4 @@
-import AdbIcon from '@mui/icons-material/Adb';
+// import AdbIcon from '@mui/icons-material/Adb';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -55,10 +55,10 @@ export default function Header() {
 	return (
 		<>
 			<CssBaseline />
-			<AppBar position='static'>
+			<AppBar position='fixed'>
 				<Container maxWidth='xl'>
 					<Toolbar disableGutters>
-						<AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+						{/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
 						<Typography
 							variant='h6'
 							noWrap
@@ -73,7 +73,7 @@ export default function Header() {
 								textDecoration: 'none',
 							}}
 						>
-							LOGO
+							React/Redux/Firebase student project
 						</Typography>
 
 						<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -118,7 +118,7 @@ export default function Header() {
 								))}
 							</Menu>
 						</Box>
-						<AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+						{/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
 						<Typography
 							variant='h5'
 							noWrap
@@ -135,7 +135,7 @@ export default function Header() {
 								textDecoration: 'none',
 							}}
 						>
-							LOGO
+							Pet - project
 						</Typography>
 						<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 							{pages.map((item) => (
@@ -153,6 +153,14 @@ export default function Header() {
 						</Box>
 
 						<Box sx={{ flexGrow: 0 }}></Box>
+						<Button
+							onClick={() => {
+								handleRedirect('/login');
+							}}
+							color='inherit'
+						>
+							Login
+						</Button>
 					</Toolbar>
 				</Container>
 			</AppBar>
